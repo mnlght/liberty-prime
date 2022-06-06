@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import {ScheduleModule} from "@nestjs/schedule";
 import {BullModule} from "@nestjs/bull";
 import {RedisModule} from "@nestjs-modules/ioredis";
+import {WsModule} from "../engine/ws/ws.module";
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import {RedisModule} from "@nestjs-modules/ioredis";
         port: +process.env.REDIS_PORT,
       },
     }),
+    WsModule
   ],
   controllers: [AppController],
   providers: [AppService],
