@@ -1,0 +1,50 @@
+version: "3.4"
+
+services:
+  redis:
+    container_name: ${COMPOSE_PROJECT_NAME}_redis
+    image: redis
+    expose:
+      - 6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  nginx:
+    container_name: ${COMPOSE_PROJECT_NAME}_nginx
+    restart: unless-stopped
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/${COMPOSE_PROJECT_NAME}:/etc/nginx/conf.d
+
+  back:
+    container_name: ${COMPOSE_PROJECT_NAME}_back
+    restart: always
+    build:
+      context: $PWD
+      dockerfile: $PWD/.docker/back/Dockerfile
+      args:
+        - BACK_UID
+        - BACK_GID
+        - REDIS_HOST
+        - REDIS_PORT
+        - FILES_DIR
+        - MAX_FILE_SIZE
+        - REDIS_FULL_CONNECT_URL
+        - FILES_KEEP_ALIVE
+    command: "start:dev"
+    expose:
+      - 3000
+    volumes:
+      - $PWD/app:/app
+      - $PWD/app/node_modules:/app/node_modules
+    env_file:
+      - "../app/.env"
+    depends_on:
+      - redis
+
+
