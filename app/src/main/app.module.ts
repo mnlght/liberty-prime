@@ -1,9 +1,25 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import {ScheduleModule} from "@nestjs/schedule";
+import {BullModule} from "@nestjs/bull";
+import {RedisModule} from "@nestjs-modules/ioredis";
 
 @Module({
-  imports: [],
+  imports: [
+    ScheduleModule.forRoot(),
+    RedisModule.forRoot({
+      config: {
+        url: process.env.REDIS_FULL_CONNECT_URL,
+      },
+    }),
+    BullModule.forRoot({
+      redis: {
+        host: process.env.REDIS_HOST,
+        port: +process.env.REDIS_PORT,
+      },
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
