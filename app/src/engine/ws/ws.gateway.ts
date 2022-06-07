@@ -1,16 +1,25 @@
-import {ConnectedSocket, MessageBody, SubscribeMessage, WebSocketGateway} from "@nestjs/websockets";
-import {Socket} from "socket.io-client";
+import {
+    ConnectedSocket,
+    MessageBody,
+    OnGatewayConnection,
+    OnGatewayDisconnect,
+    OnGatewayInit,
+    WebSocketServer
+} from "@nestjs/websockets";
+import {Server, Socket} from "socket.io";
+import {WsService} from "./ws.service";
 
-@WebSocketGateway(81)
+import { SubscribeMessage, WebSocketGateway } from '@nestjs/websockets';
+
+@WebSocketGateway({
+    path: '/ws-path',
+})
 export class WsGateway {
-    @SubscribeMessage('events')
-    public async handleEvent(
-        @MessageBody() data: string,
-        @ConnectedSocket() client: Socket,
-    ): Promise<void> {
-        await client.emit('qw3e', {
-            message: 'not ok',
-        });
-        // return data;
+    @SubscribeMessage('push')
+    onPush(client, data) {
+        return {
+            event: 'pop',
+            data,
+        };
     }
 }
