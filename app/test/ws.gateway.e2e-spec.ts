@@ -20,7 +20,7 @@ async function createNestApp(...gateways): Promise<INestApplication> {
 
 describe('WsGateway (WsAdapter)', () => {
     let ws, app
-    
+
 
     afterAll(async () => {
         await app.close();
