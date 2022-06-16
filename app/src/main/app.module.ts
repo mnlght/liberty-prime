@@ -5,6 +5,7 @@ import {ScheduleModule} from "@nestjs/schedule";
 import {BullModule} from "@nestjs/bull";
 import {RedisModule} from "@nestjs-modules/ioredis";
 import {WsModule} from "../engine/ws/ws.module";
+import {MapModule} from "../engine/map/map.module";
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import {WsModule} from "../engine/ws/ws.module";
         port: +process.env.REDIS_PORT,
       },
     }),
-    WsModule
+    WsModule,
+    MapModule,
   ],
   controllers: [AppController],
   providers: [AppService],
