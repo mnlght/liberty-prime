@@ -21,7 +21,8 @@
     "test:e2e": "jest  --forceExit --detectOpenHandles  --watchAll --maxWorkers=1 --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs-modules/ioredis": "^1.0.0",
+    "@msgpack/msgpack": "^2.7.2",
+    "@nestjs-modules/ioredis": "^1.0.1",
     "@nestjs/bull": "^0.4.2",
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^1.1.6",
@@ -31,11 +32,11 @@
     "@nestjs/platform-ws": "^8.4.6",
     "@nestjs/schedule": "^1.0.2",
     "@nestjs/websockets": "^8.4.6",
+    "@types/msgpack": "0.0.31",
     "bull": "^4.4.0",
     "chai": "^4.3.6",
     "dungeoneer": "^2.1.5",
     "ioredis": "^4.28.5",
-    "msgpack": "^1.0.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",

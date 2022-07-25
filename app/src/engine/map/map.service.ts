@@ -1,5 +1,6 @@
 import {Injectable} from "@nestjs/common";
 import * as dungeoneer from "dungeoneer";
+import { encode } from "@msgpack/msgpack";
 
 @Injectable()
 export class MapService {
@@ -9,6 +10,7 @@ export class MapService {
             height: 21
         });
 
-        console.log(map);
+        // const x = encode(map);
+        console.log(map)
     }
 }
