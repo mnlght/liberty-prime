@@ -4,13 +4,15 @@ import { encode } from "@msgpack/msgpack";
 
 @Injectable()
 export class MapService {
-    public generateMap() {
+    public async generateMap() {
         const map = dungeoneer.build({
             width: 21,
             height: 21
         });
 
         // const x = encode(map);
-        console.log(map)
+        console.log(map);
+
+        return 'uniqueMapHash';
     }
 }
